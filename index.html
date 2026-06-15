@@ -2,8 +2,38 @@
 layout: default
 title: Home
 ---
+
 # Welcome to My Custom Theme!
 This page is now automatically styled by Jekyll.
 
-<h1> Hello World!</h1>
-<p> This is my comp sci project lalala idk what to put here help me prem </p>
+<h1>Hello World!</h1>
+<p>This is my comp sci project lalala idk what to put here help me prem</p>
+
+<!-- START OF QUIZ GAME AREA -->
+<hr>
+<h2>Computer Science Pop Quiz</h2>
+<p>What does "HTML" stand for in web development?</p>
+
+<!-- Quiz Buttons -->
+<button onclick="checkAnswer('A')">A) HyperText Markup Language</button>
+<button onclick="checkAnswer('B')">B) HighTech Machine Language</button>
+<button onclick="checkAnswer('C')">C) Hyperlink Text Management Logic</button>
+
+<!-- Message where the result will show up -->
+<p id="quiz-result" style="font-weight: bold; margin-top: 15px;"></p>
+
+<script>
+function checkAnswer(chosenLetter) {
+    let resultParagraph = document.getElementById("quiz-result");
+    
+    // Check if the user's choice matches the correct answer (A)
+    if (chosenLetter === 'A') {
+        resultParagraph.textContent = "🎉 Correct! HTML is the backbone structure of every website.";
+        resultParagraph.style.color = "green";
+    } else {
+        resultParagraph.textContent = "❌ Incorrect! Give it another shot.";
+        resultParagraph.style.color = "red";
+    }
+}
+</script>
+<!-- END OF QUIZ GAME AREA -->

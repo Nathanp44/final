@@ -3,79 +3,129 @@ layout: default
 title: Home
 ---
 
-<!-- START OF MARVEL BACKGROUND STYLING -->
+<!-- START OF ALL MARVEL THEME STYLING (CSS) -->
 <style>
-body {
-    /* 1. Sets a tiled, repeating vintage Marvel comic book background */
-    background-image: url('https://urbanamericandrygoods.com');
-    background-repeat: repeat;
-    background-attachment: fixed;
-    background-size: 350px;
+/* Import a clean, bold comic-style font from Google Fonts */
+@import url('https://googleapis.com');
+
+/* 1. Force the comic panel background across the entire website */
+html, body, #main_content, .wrapper, header, footer, .container {
+    background-image: url('https://urbanamericandrygoods.com') !important;
+    background-repeat: repeat !important;
+    background-attachment: fixed !important;
+    background-size: 350px !important;
+    background-color: transparent !important;
 }
 
-/* 2. Styles your quiz container so it floats cleanly above the background pattern */
-.quiz-box {
-    background-color: rgba(255, 255, 255, 0.95); /* Bright white with 95% opacity */
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
-    border: 3px solid #000000; /* Sharp comic-book edge border */
-    margin-top: 20px;
+/* 2. Style the central page container to floating nicely above the pattern */
+#main_content, .main-content, article {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    padding: 30px !important;
+    border-radius: 15px !important;
+    box-shadow: 0px 8px 30px rgba(0,0,0,0.4) !important;
+    border: 4px solid #000000 !important;
+    max-width: 750px !important;
+    margin: 20px auto !important;
+}
+
+/* 3. Bold Comic Style Headings */
+h1, h2, #question-number {
+    font-family: 'Bangers', cursive, sans-serif !important;
+    letter-spacing: 2px !important;
+    color: #F30000 !important; /* Marvel Red */
+    text-shadow: 2px 2px 0px #000000 !important; /* Sharp comic book drop shadow */
+}
+h1 { font-size: 3.5em !important; }
+h2 { font-size: 2.5em !important; }
+
+/* 4. Bright Marvel Red and Yellow Action Buttons */
+.marvel-btn {
+    background-color: #FFDE00 !important; /* Bright Yellow */
+    color: #000000 !important;
+    border: 3px solid #000000 !important;
+    font-family: 'Bangers', sans-serif !important;
+    font-size: 1.3em !important;
+    letter-spacing: 1px !important;
+    padding: 12px 20px !important;
+    text-align: left !important;
+    cursor: pointer !important;
+    border-radius: 6px !important;
+    transition: transform 0.1s ease, background-color 0.2s !important;
+    box-shadow: 3px 3px 0px #000000 !important;
+}
+
+/* Button Hover State */
+.marvel-btn:hover {
+    background-color: #F30000 !important; /* Swaps to Marvel Red on hover */
+    color: #FFFFFF !important;
+    transform: scale(1.03) !important;
+}
+
+/* Button Click/Active State */
+.marvel-btn:active {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 1px 1px 0px #000000 !important;
 }
 </style>
-<!-- END OF MARVEL BACKGROUND STYLING -->
+<!-- END OF ALL MARVEL THEME STYLING (CSS) -->
+
+<!-- 1. MARVEL LOGO HEADER -->
+<div style="text-align: center; margin-bottom: 25px;">
+    <img src="https://wikimedia.org" alt="Marvel Logo" style="width: 280px; max-width: 100%; height: auto; filter: drop-shadow(3px 3px 0px #000000);" />
+</div>
 
 <h1>Hello World!</h1>
-<p>This is my comp sci project lalala idk what to put here help me prem</p>
+<p style="font-weight: bold;">This is my comp sci project lalala idk what to put here help me prem</p>
 
-<!-- START OF 5-QUESTION MARVEL QUIZ -->
-<div id="quiz-container" class="quiz-box">
+<!-- 2. 5-QUESTION MARVEL QUIZ -->
+<hr style="border: 2px solid #000;">
+<div id="quiz-container">
     <h2 id="question-number">Question 1 of 5</h2>
-    <p id="question-text" style="font-size: 1.2em; font-weight: bold;"></p>
+    <p id="question-text" style="font-size: 1.3em; font-weight: bold; margin-bottom: 20px;"></p>
 
     <!-- Quiz Action Buttons -->
-    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;">
-        <button id="btnA" onclick="submitAnswer('A')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
-        <button id="btnB" onclick="submitAnswer('B')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
-        <button id="btnC" onclick="submitAnswer('C')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
+    <div style="display: flex; flex-direction: column; gap: 14px; max-width: 450px;">
+        <button id="btnA" class="marvel-btn" onclick="submitAnswer('A')"></button>
+        <button id="btnB" class="marvel-btn" onclick="submitAnswer('B')"></button>
+        <button id="btnC" class="marvel-btn" onclick="submitAnswer('C')"></button>
     </div>
 
     <!-- Feedback Message Area -->
-    <p id="quiz-feedback" style="font-weight: bold; margin-top: 15px; min-height: 24px;"></p>
+    <p id="quiz-feedback" style="font-family: 'Permanent Marker', cursive; font-size: 1.2em; margin-top: 20px; min-height: 24px;"></p>
 </div>
 
+<!-- 3. QUIZ JAVASCRIPT GAME LOGIC -->
 <script>
-// Data Store: Array of objects containing our 5 Marvel questions
 const quizData = [
     {
         question: "Which metal is Captain America's shield made out of?",
         A: "A) Adamantium", B: "B) Vibranium", C: "C) Uru",
         correct: "B",
-        feedback: "🛡️ Correct! Wakandan Vibranium absorbs kinetic energy."
+        feedback: "🛡️ BAMF! Wakandan Vibranium absorbs kinetic energy!"
     },
     {
         question: "What is the name of Thor's magical hammer?",
         A: "A) Stormbreaker", B: "B) Mjolnir", C: "C) Gungnir",
         correct: "B",
-        feedback: "⚡ Correct! Only the worthy can lift Mjolnir."
+        feedback: "⚡ CRACKLE! Only the worthy can lift Mjolnir."
     },
     {
         question: "Who is Tony Stark's artificial intelligence assistant in the first Iron Man movie?",
         A: "A) J.A.R.V.I.S.", B: "B) F.R.I.D.A.Y.", C: "C) E.D.I.T.H.",
         correct: "A",
-        feedback: "🤖 Correct! Just A Rather Very Intelligent System."
+        feedback: "🤖 Just A Rather Very Intelligent System."
     },
     {
         question: "What infinity stone is hidden inside the Tesseract?",
         A: "A) Reality Stone", B: "B) Power Stone", C: "C) Space Stone",
         correct: "C",
-        feedback: "🌌 Correct! The blue Space Stone allows teleportation."
+        feedback: "🌌 The blue Space Stone allows total teleportation!"
     },
     {
         question: "Which planet is Thanos from?",
         A: "A) Titan", B: "B) Ego", C: "C) Xandar",
         correct: "A",
-        feedback: "🪐 Correct! Thanos is known as the Mad Titan."
+        feedback: "🪐 SNAP! Thanos is known as the Mad Titan."
     }
 ];
 
@@ -105,21 +155,21 @@ function submitAnswer(chosenLetter) {
     if (chosenLetter === currentQuiz.correct) {
         score++;
         feedbackParagraph.textContent = currentQuiz.feedback;
-        feedbackParagraph.style.color = "green";
+        feedbackParagraph.style.color = "#008800";
     } else {
-        feedbackParagraph.textContent = `❌ Incorrect! The right answer was ${currentQuiz.correct}.`;
-        feedbackParagraph.style.color = "red";
+        feedbackParagraph.textContent = `❌ WRONG! The correct choice was ${currentQuiz.correct}!`;
+        feedbackParagraph.style.color = "#F30000";
     }
 
     currentQuestionIndex++;
-    setTimeout(loadQuestion, 2000); 
+    setTimeout(loadQuestion, 2200); 
 }
 
 function showFinalScore() {
     document.getElementById("quiz-container").innerHTML = `
-        <h2>Quiz Complete!</h2>
-        <p style="font-size: 1.5em;">You scored <strong>${score} out of 5</strong>!</p>
-        <button onclick="resetQuiz()" style="padding: 10px 20px; cursor: pointer;">Try Again</button>
+        <h2>QUIZ COMPLETE!</h2>
+        <p style="font-size: 1.6em; font-family: 'Permanent Marker', cursive;">You scored <strong>${score} out of 5</strong>!</p>
+        <button class="marvel-btn" onclick="resetQuiz()" style="text-align: center; max-width: 200px;">PLAY AGAIN</button>
     `;
 }
 
@@ -127,6 +177,6 @@ function resetQuiz() {
     location.reload(); 
 }
 
+// Initialize game
 loadQuestion();
 </script>
-<!-- END OF 5-QUESTION MARVEL QUIZ -->

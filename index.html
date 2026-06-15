@@ -3,23 +3,41 @@ layout: default
 title: Home
 ---
 
-# Welcome to My Custom Theme!
-This page is now automatically styled by Jekyll.
+<!-- START OF MARVEL BACKGROUND STYLING -->
+<style>
+body {
+    /* 1. Sets a tiled, repeating vintage Marvel comic book background */
+    background-image: url('https://urbanamericandrygoods.com');
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 350px;
+}
+
+/* 2. Styles your quiz container so it floats cleanly above the background pattern */
+.quiz-box {
+    background-color: rgba(255, 255, 255, 0.95); /* Bright white with 95% opacity */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    border: 3px solid #000000; /* Sharp comic-book edge border */
+    margin-top: 20px;
+}
+</style>
+<!-- END OF MARVEL BACKGROUND STYLING -->
 
 <h1>Hello World!</h1>
 <p>This is my comp sci project lalala idk what to put here help me prem</p>
 
 <!-- START OF 5-QUESTION MARVEL QUIZ -->
-<hr>
-<div id="quiz-container">
+<div id="quiz-container" class="quiz-box">
     <h2 id="question-number">Question 1 of 5</h2>
     <p id="question-text" style="font-size: 1.2em; font-weight: bold;"></p>
 
     <!-- Quiz Action Buttons -->
     <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;">
-        <button id="btnA" onclick="submitAnswer('A')" style="padding: 10px; text-align: left;"></button>
-        <button id="btnB" onclick="submitAnswer('B')" style="padding: 10px; text-align: left;"></button>
-        <button id="btnC" onclick="submitAnswer('C')" style="padding: 10px; text-align: left;"></button>
+        <button id="btnA" onclick="submitAnswer('A')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
+        <button id="btnB" onclick="submitAnswer('B')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
+        <button id="btnC" onclick="submitAnswer('C')" style="padding: 10px; text-align: left; cursor: pointer; font-weight: bold;"></button>
     </div>
 
     <!-- Feedback Message Area -->
@@ -27,7 +45,7 @@ This page is now automatically styled by Jekyll.
 </div>
 
 <script>
-// 1. Data Store: Array of objects containing our 5 Marvel questions
+// Data Store: Array of objects containing our 5 Marvel questions
 const quizData = [
     {
         question: "Which metal is Captain America's shield made out of?",
@@ -61,13 +79,10 @@ const quizData = [
     }
 ];
 
-// 2. State Tracking Variables
 let currentQuestionIndex = 0;
 let score = 0;
 
-// 3. Controller Function: Renders the active question text onto the HTML page
 function loadQuestion() {
-    // Check if we ran out of questions
     if (currentQuestionIndex >= quizData.length) {
         showFinalScore();
         return;
@@ -75,16 +90,14 @@ function loadQuestion() {
 
     let currentQuiz = quizData[currentQuestionIndex];
     
-    // Update the visual text on the website
     document.getElementById("question-number").textContent = `Question ${currentQuestionIndex + 1} of 5`;
     document.getElementById("question-text").textContent = currentQuiz.question;
     document.getElementById("btnA").textContent = currentQuiz.A;
     document.getElementById("btnB").textContent = currentQuiz.B;
     document.getElementById("btnC").textContent = currentQuiz.C;
-    document.getElementById("quiz-feedback").textContent = ""; // Reset feedback text
+    document.getElementById("quiz-feedback").textContent = ""; 
 }
 
-// 4. Logic Function: Checks the click input against the answer key
 function submitAnswer(chosenLetter) {
     let currentQuiz = quizData[currentQuestionIndex];
     let feedbackParagraph = document.getElementById("quiz-feedback");
@@ -98,32 +111,22 @@ function submitAnswer(chosenLetter) {
         feedbackParagraph.style.color = "red";
     }
 
-    // Freeze buttons briefly so the user can read the answer before moving to the next question
     currentQuestionIndex++;
     setTimeout(loadQuestion, 2000); 
 }
 
-// 5. End Game State Function
 function showFinalScore() {
     document.getElementById("quiz-container").innerHTML = `
         <h2>Quiz Complete!</h2>
         <p style="font-size: 1.5em;">You scored <strong>${score} out of 5</strong>!</p>
-        <button onclick="resetQuiz()" style="padding: 10px 20px;">Try Again</button>
+        <button onclick="resetQuiz()" style="padding: 10px 20px; cursor: pointer;">Try Again</button>
     `;
 }
 
-// 6. Reset State Function
 function resetQuiz() {
-    location.reload(); // Quickly refreshes the site to start over cleanly
+    location.reload(); 
 }
 
-// Initialize the very first question when the page loads up
 loadQuestion();
 </script>
 <!-- END OF 5-QUESTION MARVEL QUIZ -->
-
-        resultParagraph.style.color = "red";
-    }
-}
-</script>
-<!-- END OF QUIZ GAME AREA -->

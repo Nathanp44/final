@@ -9,29 +9,119 @@ This page is now automatically styled by Jekyll.
 <h1>Hello World!</h1>
 <p>This is my comp sci project lalala idk what to put here help me prem</p>
 
-<!-- START OF QUIZ GAME AREA -->
+<!-- START OF 5-QUESTION MARVEL QUIZ -->
 <hr>
-<h2>Computer Science Pop Quiz</h2>
-<p>What does "HTML" stand for in web development?</p>
+<div id="quiz-container">
+    <h2 id="question-number">Question 1 of 5</h2>
+    <p id="question-text" style="font-size: 1.2em; font-weight: bold;"></p>
 
-<!-- Quiz Buttons -->
-<button onclick="checkAnswer('A')">A) HyperText Markup Language</button>
-<button onclick="checkAnswer('B')">B) HighTech Machine Language</button>
-<button onclick="checkAnswer('C')">C) Hyperlink Text Management Logic</button>
+    <!-- Quiz Action Buttons -->
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 300px;">
+        <button id="btnA" onclick="submitAnswer('A')" style="padding: 10px; text-align: left;"></button>
+        <button id="btnB" onclick="submitAnswer('B')" style="padding: 10px; text-align: left;"></button>
+        <button id="btnC" onclick="submitAnswer('C')" style="padding: 10px; text-align: left;"></button>
+    </div>
 
-<!-- Message where the result will show up -->
-<p id="quiz-result" style="font-weight: bold; margin-top: 15px;"></p>
+    <!-- Feedback Message Area -->
+    <p id="quiz-feedback" style="font-weight: bold; margin-top: 15px; min-height: 24px;"></p>
+</div>
 
 <script>
-function checkAnswer(chosenLetter) {
-    let resultParagraph = document.getElementById("quiz-result");
+// 1. Data Store: Array of objects containing our 5 Marvel questions
+const quizData = [
+    {
+        question: "Which metal is Captain America's shield made out of?",
+        A: "A) Adamantium", B: "B) Vibranium", C: "C) Uru",
+        correct: "B",
+        feedback: "🛡️ Correct! Wakandan Vibranium absorbs kinetic energy."
+    },
+    {
+        question: "What is the name of Thor's magical hammer?",
+        A: "A) Stormbreaker", B: "B) Mjolnir", C: "C) Gungnir",
+        correct: "B",
+        feedback: "⚡ Correct! Only the worthy can lift Mjolnir."
+    },
+    {
+        question: "Who is Tony Stark's artificial intelligence assistant in the first Iron Man movie?",
+        A: "A) J.A.R.V.I.S.", B: "B) F.R.I.D.A.Y.", C: "C) E.D.I.T.H.",
+        correct: "A",
+        feedback: "🤖 Correct! Just A Rather Very Intelligent System."
+    },
+    {
+        question: "What infinity stone is hidden inside the Tesseract?",
+        A: "A) Reality Stone", B: "B) Power Stone", C: "C) Space Stone",
+        correct: "C",
+        feedback: "🌌 Correct! The blue Space Stone allows teleportation."
+    },
+    {
+        question: "Which planet is Thanos from?",
+        A: "A) Titan", B: "B) Ego", C: "C) Xandar",
+        correct: "A",
+        feedback: "🪐 Correct! Thanos is known as the Mad Titan."
+    }
+];
+
+// 2. State Tracking Variables
+let currentQuestionIndex = 0;
+let score = 0;
+
+// 3. Controller Function: Renders the active question text onto the HTML page
+function loadQuestion() {
+    // Check if we ran out of questions
+    if (currentQuestionIndex >= quizData.length) {
+        showFinalScore();
+        return;
+    }
+
+    let currentQuiz = quizData[currentQuestionIndex];
     
-    // Check if the user's choice matches the correct answer (A)
-    if (chosenLetter === 'A') {
-        resultParagraph.textContent = "🎉 Correct! HTML is the backbone structure of every website.";
-        resultParagraph.style.color = "green";
+    // Update the visual text on the website
+    document.getElementById("question-number").textContent = `Question ${currentQuestionIndex + 1} of 5`;
+    document.getElementById("question-text").textContent = currentQuiz.question;
+    document.getElementById("btnA").textContent = currentQuiz.A;
+    document.getElementById("btnB").textContent = currentQuiz.B;
+    document.getElementById("btnC").textContent = currentQuiz.C;
+    document.getElementById("quiz-feedback").textContent = ""; // Reset feedback text
+}
+
+// 4. Logic Function: Checks the click input against the answer key
+function submitAnswer(chosenLetter) {
+    let currentQuiz = quizData[currentQuestionIndex];
+    let feedbackParagraph = document.getElementById("quiz-feedback");
+
+    if (chosenLetter === currentQuiz.correct) {
+        score++;
+        feedbackParagraph.textContent = currentQuiz.feedback;
+        feedbackParagraph.style.color = "green";
     } else {
-        resultParagraph.textContent = "❌ Incorrect! Give it another shot.";
+        feedbackParagraph.textContent = `❌ Incorrect! The right answer was ${currentQuiz.correct}.`;
+        feedbackParagraph.style.color = "red";
+    }
+
+    // Freeze buttons briefly so the user can read the answer before moving to the next question
+    currentQuestionIndex++;
+    setTimeout(loadQuestion, 2000); 
+}
+
+// 5. End Game State Function
+function showFinalScore() {
+    document.getElementById("quiz-container").innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p style="font-size: 1.5em;">You scored <strong>${score} out of 5</strong>!</p>
+        <button onclick="resetQuiz()" style="padding: 10px 20px;">Try Again</button>
+    `;
+}
+
+// 6. Reset State Function
+function resetQuiz() {
+    location.reload(); // Quickly refreshes the site to start over cleanly
+}
+
+// Initialize the very first question when the page loads up
+loadQuestion();
+</script>
+<!-- END OF 5-QUESTION MARVEL QUIZ -->
+
         resultParagraph.style.color = "red";
     }
 }
